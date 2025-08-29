@@ -168,7 +168,7 @@ function handleLoginSubmit() {
                 successMessage.classList.remove("d-none");
                 form.reset();
                 // optional redirect after login
-                window.location.href = "index.html";
+                window.location.href = "dashboard.html";
             } else {
                 errorMessage.textContent = "❌ " + (result.message || "Invalid mobile number or password!121");
                 errorMessage.classList.remove("d-none");
