@@ -72,20 +72,112 @@ var handleFormSubmit = function () {
 // handle Get Data  =============
 var handleGetData = function () {
     fetch('https://shivsunan.app.n8n.cloud/webhook/get-attendance')
-    .then(response => response.json())
-    .then(data => {
-        const tableBody = document.getElementById('attendanceTableBody');
-        data.forEach(record => {    
-            const row = document.createElement('tr');
-            row.innerHTML = `
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('attendanceTableBody');
+            data.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
                 <td>${record.Name}</td>
                 <td>${record.PunchType}</td>
                 <td>${record.PunchIn}</td>
                 <td>${record.PunchOut}</td>
                 <td>${record.Date}</td>
             `;
-            tableBody.appendChild(row);
-        }); 
-    })
-    .catch(error => console.error('Error fetching attendance records:', error));
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching attendance records:', error));
+}
+
+// Register of Event Handlers  =============
+var handleRegisterSubmit = function () {
+    const form = document.getElementById('registrationForm');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const mobilenumber = document.getElementById('mobilenumber').value;
+        const password = document.getElementById('password').value;
+        const formData = { username, email, mobilenumber, password };
+        try {
+            const response = await fetch('https://shivsunan.app.n8n.cloud/webhook/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            let resultText = await response.text();
+            let result;
+
+            try {
+                result = JSON.parse(resultText);
+            } catch {
+                result = { status: "ok", message: resultText || "No response body" }; 
+            }
+            successMessage.classList.add("d-none");
+            errorMessage.classList.add("d-none");
+            if (response.ok && result.status !== "error") {
+                form.reset();
+                successMessage.classList.remove("d-none");
+            } else {
+                errorMessage.textContent = "❌ " + (result.message || "Registration failed!");
+                errorMessage.classList.remove("d-none");
+            }
+        } catch (error) {
+            console.error('Registration failed:', error);
+            successMessage.classList.add("d-none");
+            errorMessage.textContent = "❌ Something went wrong!";
+            errorMessage.classList.remove("d-none");
+        }
+    });
+}
+
+function handleLoginSubmit() {
+    const form = document.getElementById('loginForm');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const mobilenumber = document.getElementById('mobilenumber').value;
+        const password = document.getElementById('password').value;
+        const formData = { mobilenumber, password };
+        try {
+            const response = await fetch('https://shivsunan.app.n8n.cloud/webhook/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            let resultText = await response.text();
+            let result;
+            try {
+                result = JSON.parse(resultText);
+            } catch {
+                result = { status: "ok", message: resultText || "No response body" };
+            }
+
+            successMessage.classList.add("d-none");
+            errorMessage.classList.add("d-none");
+            if (response.ok && result.status !== "error") {
+                successMessage.textContent = "✅ Login successful!";
+                successMessage.classList.remove("d-none");
+                form.reset();
+                // optional redirect after login
+                window.location.href = "index.html";
+            } else {
+                errorMessage.textContent = "❌ " + (result.message || "Invalid mobile number or password!121");
+                errorMessage.classList.remove("d-none");
+            }
+        } catch (error) {
+            console.error("Login failed:", error);
+            successMessage.classList.add("d-none");
+            errorMessage.textContent = "❌ Something went wrong!";
+            errorMessage.classList.remove("d-none");
+        }
+    });
 }

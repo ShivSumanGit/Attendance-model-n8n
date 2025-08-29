@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="MdAasifShah">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Register User</title>
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+    <!-- Included CSS -->
+    <!-- <link rel="stylesheet" href="assets/css/animate.min.css"> -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Color CSS -->
+    <link rel="stylesheet" href="assets/css/color/default.css">
+    <!-- Main CSS -->
+    <link id="mainStylesheet" rel="stylesheet" href="assets/css/main.css">
+   
+</head>
+<body class="">
+    <div class="container">
+        <h1 class="text-center mt-5">User Login</h1>
+        <p class="text-center">Enter your mobile number and password to log in.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- Success message -->
+                <div id="successMessage" class="alert alert-success mb-3 d-none" role="alert">
+                    ✅ Login  successfully!
+                </div>
+                <!-- Error message -->
+                <div id="errorMessage" class="alert alert-danger mb-3 d-none" role="alert">
+                    ❌ Invalid mobile number or password!
+                </div>
+                <form id="loginForm" class="mt-4">
+                    <div class="form-group mb-3">
+                        <label for="mobilenumber">Mobile Number</label>
+                        <input type="text" class="form-control" id="mobilenumber" name="mobilenumber" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    <a href="register.html" class="btn btn-secondary btn-block">Create New Account</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--===// Start: Scripts
+    =================================-->
+    <script src="assets/js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
+    <script src="assets/js/custom.js"></script><!-- CUSTOM JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            handleLoginSubmit();
+        });
+    </script>
+    <!--===// End: Scripts
+    =================================-->
+</body>
