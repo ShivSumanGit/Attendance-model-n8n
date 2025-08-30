@@ -67,6 +67,10 @@
     <script src="assets/js/custom.js"></script><!-- CUSTOM JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                window.location.href = 'dashboard.html'; // Already logged in
+            }
             handleRegisterSubmit();
         });
     </script>

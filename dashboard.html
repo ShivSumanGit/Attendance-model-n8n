@@ -26,7 +26,7 @@
 <body class="">
 
     <div class="container">
-        <h1 class="text-center">Attendance Form</h1>
+        <h1 class="text-center mt-5">Attendance Form</h1>
         <p class="text-center">Please fill in the form below to record your attendance.</p>
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -61,6 +61,7 @@
                     <input type="hidden" name="time" id="timeField" />
                     <button type="submit" class="btn btn-primary" id="markAttendanceBtn">Submit</button>
                     <a href="list.html" id="viewList" class="btn btn-success ms-2 d-none">View Attendance List</a>
+                    <a href="javascript:void(0);" class="btn btn-danger float-end" id="logoutBtn">Logout</a>
                     <!-- <a href="register.html" class="btn btn-info ms-2">Register User</a> -->
                 </form>
             </div>
@@ -73,9 +74,14 @@
     <script src="assets/js/custom.js"></script><!-- CUSTOM JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('authToken');
+            if (!token) {
+                window.location.href = 'login.html';
+            }
             handleDateTime();
             setInterval(handleDateTime, 1000);
             handleFormSubmit();
+            handleLogout();
         });
     </script>
     <!--===// End: Scripts

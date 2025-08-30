@@ -137,6 +137,7 @@ var handleRegisterSubmit = function () {
     });
 }
 
+// Login Submit  =============
 function handleLoginSubmit() {
     const form = document.getElementById('loginForm');
     const successMessage = document.getElementById('successMessage');
@@ -168,6 +169,7 @@ function handleLoginSubmit() {
                 successMessage.classList.remove("d-none");
                 form.reset();
                 // optional redirect after login
+                localStorage.setItem('authToken', result.token);
                 window.location.href = "dashboard.html";
             } else {
                 errorMessage.textContent = "❌ " + (result.message || "Invalid mobile number or password!121");
@@ -180,4 +182,15 @@ function handleLoginSubmit() {
             errorMessage.classList.remove("d-none");
         }
     });
+}
+
+// Logout  =============
+function handleLogout() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('authToken');
+            window.location.href = 'login.html';
+        });
+    }
 }
