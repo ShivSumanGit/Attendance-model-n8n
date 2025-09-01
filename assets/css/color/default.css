@@ -25,7 +25,7 @@
 }
 
 ::selection {
-    background-color: var(--sp-primary);
+    background-color: color-mix(in srgb, var(--sp-primary) 100%, black 50%);
     color: #ffffff;-webkit-text-fill-color: #ffffff;
 }
 
